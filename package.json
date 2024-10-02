@@ -7,20 +7,32 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start:server": "node --loader ts-node/esm src/server.ts"
   },
   "dependencies": {
-    "@radix-ui/react-slot": "^1.0.2",
+    "@auth0/auth0-react": "^2.2.4",
+    "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-slot": "^1.1.0",
     "@types/react-router-dom": "^5.3.3",
+    "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
+    "connect-mongo": "^5.1.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "express-session": "^1.18.0",
     "lucide-react": "^0.244.0",
+    "mongoose": "^8.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.26.2",
     "tailwindcss-animate": "^1.0.6"
   },
   "devDependencies": {
+    "@types/connect-mongo": "^3.1.2",
+    "@types/express": "^5.0.0",
+    "@types/express-session": "^1.18.0",
     "@types/node": "^20.8.0",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
@@ -35,7 +47,8 @@
     "prettier-plugin-tailwindcss": "0.2.5",
     "tailwind-merge": "^1.12.0",
     "tailwindcss": "^3.3.2",
-    "typescript": "^5.0.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2",
     "vite": "^4.3.9"
   }
 }
