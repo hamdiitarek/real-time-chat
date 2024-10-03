@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import {
@@ -10,6 +10,7 @@ import {
 } from "../components/ui/card";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
+import { login } from "../auth/authService"; // Import the login function from your authService
 
 export const description =
   "A login form with email and password. There's an option to login with Google and a link to sign up if you don't have an account.";
@@ -21,25 +22,16 @@ const Login: React.FC = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:5000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username: email, password }),
-      });
-
-      if (response.ok) {
-        // Handle successful login
-        navigate("/dashboard"); // Redirect to dashboard or another page
+      const response = await login({ username: email, password }); // Ensure the property name is correct
+      if (response.token) {
+        localStorage.setItem("authToken", response.token); // Save the token
+        navigate("/dashboard"); // Redirect on successful login
       } else {
-        // Handle login error
-        const errorText = await response.text();
-        alert(errorText);
+        alert("Login failed: " + response.error || "Invalid credentials");
       }
     } catch (error) {
       console.error("Error logging in:", error);
-      alert("An error occurred. Please try again.");
+      alert(error.message || "An error occurred. Please try again.");
     }
   };
 

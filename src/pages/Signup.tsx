@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import {
@@ -10,6 +10,7 @@ import {
 } from "../components/ui/card";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
+import { register } from "../auth/authService"; // Import the register function from your authService
 
 export const description =
   "A sign up form with first name, last name, email and password inside a card. There's an option to sign up with GitHub and a link to login if you already have an account.";
@@ -23,21 +24,21 @@ export function SignUp() {
 
   const handleSignup = async () => {
     try {
-      const response = await fetch("http://localhost:5000/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username: email, password }),
+      // Use the authService register function instead of fetch
+      const response = await register({
+        username: email,
+        firstName,
+        lastName,
+        password,
       });
 
-      if (response.ok) {
-        // Handle successful signup
+      if (response.message === "User registered successfully") {
+        // Assuming the `response` contains a success message on successful registration
+        alert("Registration successful! Please log in.");
         navigate("/login"); // Redirect to login page
       } else {
         // Handle signup error
-        const errorText = await response.text();
-        alert(errorText);
+        alert("Sign-up failed: " + response.error || "Invalid input");
       }
     } catch (error) {
       console.error("Error signing up:", error);
@@ -115,3 +116,5 @@ export function SignUp() {
     </Card>
   );
 }
+
+export default SignUp;
