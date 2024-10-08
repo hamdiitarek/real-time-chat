@@ -1,11 +1,17 @@
-import mongoose from 'mongoose';
+import mongoose, { ConnectOptions } from 'mongoose';
+
+const options: ConnectOptions = {
+  // Remove useNewUrlParser if it's not valid
+};
+
+mongoose.connect(process.env.MONGO_URI as string, options)
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI!, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+      });
     console.log('MongoDB connected');
   } catch (error) {
     console.error('MongoDB connection error:', error);
@@ -14,3 +20,5 @@ const connectDB = async () => {
 };
 
 export default connectDB;
+
+

@@ -12,25 +12,29 @@ const isAuthenticated = () => {
   return localStorage.getItem('authToken') !== null;
 };
 
+// Define the type for the PrivateRoute props
+interface PrivateRouteProps {
+  element: JSX.Element;
+}
+
 // PrivateRoute component
-const PrivateRoute = ({ element }) => {
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ element }) => {
   return isAuthenticated() ? element : <Navigate to="/login" />;
 };
 
+// App component
 const App: React.FC = () => {
   return (
     <Router>
       <Navbar />
-      <div className="p-8">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/contact" element={<PrivateRoute element={<Contact />} />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/private" element={<PrivateRoute element={<Home />} />} />
+      </Routes>
     </Router>
   );
 };

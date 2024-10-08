@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 // Load environment variables
 dotenv.config();
 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 

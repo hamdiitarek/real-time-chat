@@ -1,7 +1,6 @@
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { Statistics } from '../components/Statistics';
-import ThemeToggle from '../components/ThemeToggle'; // Adjust the path as necessary
 import './Home.css'; // Adjust the path as necessary
 
 const Home = () => {
